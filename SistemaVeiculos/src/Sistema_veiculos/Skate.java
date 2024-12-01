@@ -1,22 +1,23 @@
 package Sistema_veiculos;
 
+import dao.VeiculoDAO;
+
 // Classe Skates
-class Skates {
-    private String modelo; // modelo do skate
-    private String marca; // marca do skate
-    private String cor; // cor do skate
-    private String tipoRodas; // tipo das rodas do skate
+public class Skate {
+    private String modelo;     // modelo do skate
+    private String marca;      // marca do skate
+    private String cor;        // cor do skate
+    private String tipoRodas;  // tipo das rodas do skate
 
     // Construtor da classe Skates
-    public Skates(String modelo, String marca, String cor, String tipoRodas) {
-        setModelo(modelo); // setando o modelo
-        setMarca(marca); // setando a marca
-        setCor(cor); // setando a cor
-        setTipoRodas(tipoRodas); // setando o tipo das rodas
+    public Skate(String modelo, String marca, String cor, String tipoRodas) {
+        setModelo(modelo);        // setando o modelo
+        setMarca(marca);          // setando a marca
+        setCor(cor);              // setando a cor
+        setTipoRodas(tipoRodas);  // setando o tipo das rodas
     }
 
     // Getters e Setters com validações
-
     public String getModelo() {
         return modelo; // devolve o modelo
     }
@@ -61,12 +62,16 @@ class Skates {
         this.tipoRodas = tipoRodas; // se for válida, setamos
     }
 
-    String descricao() {
+    public String descricao() {
         return "\nModelo: " + modelo + "\nMarca: " + marca + "\nCor: " + cor + "\nTipo das Rodas: " + tipoRodas; // retorna a descrição do skate
     }
 
-    String gerarInsert() {
-        return String.format("INSERT INTO Skates(modelo, marca, cor, tipoRodas) VALUES ('%s', '%s', '%s', '%s');",
-                             modelo, marca, cor, tipoRodas); // formata o comando de inserção
+    // Método para inserir o skate no banco de dados
+ // Método para inserir o skate no banco de dados usando VeiculoDAO
+    public void inserirNoBanco() {
+        VeiculoDAO dao = new VeiculoDAO();
+        String sql = String.format("INSERT INTO Skates (modelo, marca, cor, tipoRodas) VALUES ('%s', '%s', '%s', '%s');",
+                                   modelo, marca, cor, tipoRodas);
+        dao.inserirVeiculo(sql);
     }
 }
